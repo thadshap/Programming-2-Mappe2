@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stud.ntnu.IDATT2001.MappeDel2.PatientRegisterController">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu fx:id="file" mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem fx:id="importFromCSV" mnemonicParsing="false" text="Import from .CSV..." />
+            <MenuItem fx:id="exportToCSV" mnemonicParsing="false" text="Export to .CSV..." />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exitApplication" text="Exit" />
+          </items>
+        </Menu>
+        <Menu fx:id="edit" mnemonicParsing="false" text="Edit">
+          <items>
+            <MenuItem fx:id="addNewPatient" mnemonicParsing="false" onAction="#addPatient" text="Add new Patient...">
+              <graphic>
+                <ImageView fx:id="addIcon" disable="false" fitHeight="15" fitWidth="15" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@add.png" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </MenuItem>
+            <MenuItem fx:id="editSelectedPatient" mnemonicParsing="false" text="Edit Selected Patient">
+              <graphic>
+                <ImageView fx:id="editIcon" disable="false" fitHeight="15" fitWidth="15" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@edit.png" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </MenuItem>
+            <MenuItem fx:id="removeSelectedPatient" mnemonicParsing="false" onAction="#deleteConfirmation" text="Remove Selected Patient ">
+              <graphic>
+                <ImageView fx:id="removeIcon" disable="false" fitHeight="15" fitWidth="15" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@remove.png" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </MenuItem>
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#helpBox" text="About" />
+               </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+      <Pane prefHeight="47.0" prefWidth="640.0">
+         <children>
+            <ToolBar layoutX="-1.0" layoutY="-1.0" prefHeight="50.0" prefWidth="641.0">
+              <items>
+                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#addPatient" prefHeight="39.0" prefWidth="48.0" style="-fx-background-image: add\.png;">
+                     <graphic>
+                        <ImageView fitHeight="34.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@add.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="editButton" mnemonicParsing="false" onAction="#showPleaseSelectItemDialog" prefHeight="39.0" prefWidth="48.0">
+                     <graphic>
+                        <ImageView fitHeight="34.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@edit.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="removeButton" mnemonicParsing="false" onAction="#deleteConfirmation" prefHeight="39.0" prefWidth="48.0">
+                     <graphic>
+                        <ImageView fitHeight="34.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@remove.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+              </items>
+            </ToolBar>
+         </children>
+      </Pane>
+      <BorderPane fx:id="tableViewPane">
+         <center>
+            <TableView fx:id="patientDetailsTableView" prefHeight="322.0" prefWidth="641.0">
+              <columns>
+                <TableColumn fx:id="firstName" editable="false" prefWidth="121.70206773281097" text="First name" />
+                  <TableColumn fx:id="lastName" editable="false" minWidth="0.0" prefWidth="122.76943969726562" text="Last name" />
+                  <TableColumn fx:id="generalPractitioner" editable="false" prefWidth="137.76947021484375" text="General practitioner" />
+                  <TableColumn fx:id="ssn" prefWidth="160.91275024414062" text="Social security number" />
+                  <TableColumn fx:id="diagnosis" prefWidth="99.08721923828125" text="Diagnosis" />
+              </columns>
+            </TableView>
+         </center>
+      </BorderPane>
+      <Pane prefHeight="26.0" prefWidth="640.0" style="-fx-background-color: lightgrey;">
+         <children>
+            <Label fx:id="status" layoutX="8.0" layoutY="4.0" prefHeight="17.0" prefWidth="115.0" />
+         </children>
+      </Pane>
+  </children>
+</VBox>
