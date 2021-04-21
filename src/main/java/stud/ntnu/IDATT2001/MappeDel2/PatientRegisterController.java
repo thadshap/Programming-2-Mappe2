@@ -27,7 +27,7 @@ public class PatientRegisterController implements Initializable {
     @FXML private TableColumn<Patient,String> generalPractitioner;
     @FXML private TableColumn<Patient,String> ssn;
     @FXML private TableColumn<Patient,String> diagnosis;
-    @FXML private BorderPane tableViewPane;
+
 
     private PatientRegister patientRegister;
 
@@ -177,18 +177,20 @@ public class PatientRegisterController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         patientRegister = new PatientRegister();
 
-        firstName.setCellValueFactory(new PropertyValueFactory<Patient,String>("firstName"));
-        lastName.setCellValueFactory(new PropertyValueFactory<Patient,String>("lastName"));
-        generalPractitioner.setCellValueFactory(new PropertyValueFactory<Patient,String>("generalPractitioner"));
-        ssn.setCellValueFactory(new PropertyValueFactory<Patient,String>("ssn"));
-        diagnosis.setCellValueFactory(new PropertyValueFactory<Patient,String>("diagnosis"));
-
         patientRegister.addPatient(new Patient("12345678910","t","t","r","r"));
         patientRegister.addPatient(new Patient("12345678810","t","p","r","r"));
 
-        patientDetailsTableView = createCenterContent();
+        firstName.setCellValueFactory(new PropertyValueFactory<Patient,String>("firstName"));
+        lastName.setCellValueFactory(new PropertyValueFactory<Patient,String>("lastName"));
+        generalPractitioner.setCellValueFactory(new PropertyValueFactory<Patient,String>("generalPractitioner"));
+        ssn.setCellValueFactory(new PropertyValueFactory<Patient,String>("socialSecurityNumber"));
+        diagnosis.setCellValueFactory(new PropertyValueFactory<Patient,String>("diagnosis"));
+        patientDetailsTableView.getColumns().addAll(firstName,lastName,generalPractitioner,ssn,diagnosis);
 
-        tableViewPane.setCenter(patientDetailsTableView);
+        patientDetailsTableView.setItems(getPatientRegisterListWrapper());
+
+        //patientDetailsTableView = createCenterContent();
+
     }
 
 }
