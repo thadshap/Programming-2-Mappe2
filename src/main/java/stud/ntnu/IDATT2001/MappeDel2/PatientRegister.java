@@ -10,13 +10,15 @@ public class PatientRegister {
         patients = new ArrayList<>();
     }
 
-    public void addPatient(Patient newPatient) {
-        if (newPatient != null) {
-            patients.add(newPatient);
+    public boolean addPatient(Patient newPatient) {
+
+        if (newPatient != null && !patients.stream().anyMatch(p -> p.equals(newPatient))) {
+           return patients.add(newPatient);
         }
+        return false;
     }
 
     public void removePatient(Patient patient){this.patients.remove(patient);}
 
-    public Collection<Patient> getAllPatients(){return  this.patients;}
+    public Collection<Patient> getAllPatients(){return this.patients;}
 }

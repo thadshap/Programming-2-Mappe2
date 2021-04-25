@@ -27,6 +27,7 @@ public class PatientRegisterController implements Initializable {
     @FXML private TableColumn<Patient,String> generalPractitioner;
     @FXML private TableColumn<Patient,String> ssn;
     @FXML private TableColumn<Patient,String> diagnosis;
+    @FXML private Label status;
 
 
     private PatientRegister patientRegister;
@@ -48,24 +49,6 @@ public class PatientRegisterController implements Initializable {
     }
 
     @FXML
-    private TableView<Patient> createCenterContent(){
-        TableView<Patient> tableView = new TableView<>();
-        ObservableList<Patient> observableList = this.getPatientRegisterListWrapper();
-        tableView.setItems(observableList);
-
-        tableView.setOnMousePressed(mouseEvent -> {
-            if (mouseEvent.isPrimaryButtonDown() && (mouseEvent.getClickCount() == 2)) {
-                Patient selectedPatient = tableView.getSelectionModel().getSelectedItem();
-                if (selectedPatient != null) {
-                    showDetails(selectedPatient);
-                }
-            }
-        });
-       // patientDetailsTableView = tableView;
-        return tableView;
-    }
-
-    @FXML
     public void addPatient() {
 
         PatientDialog patientDialog = new PatientDialog();
@@ -74,9 +57,17 @@ public class PatientRegisterController implements Initializable {
 
         if (result.isPresent()) {
             Patient newPatient = result.get();
-            patientRegister.addPatient(newPatient);
-            updateObservableList();
-            System.out.println("hei");
+            if (newPatient.getErrorMessages().isEmpty()) {
+                if (patientRegister.addPatient(newPatient)) {
+                    status.setText("Patient was successfully registered.");
+                } else {
+                    status.setText("Patient with this social security number is already registered.");
+                }
+                updateObservableList();
+            }
+            else {
+                status.setText("Could not add patient. Required to fill all fields.");
+            }
         }
     }
 
@@ -104,6 +95,7 @@ public class PatientRegisterController implements Initializable {
         } else {
             if (deleteConfirmation()) {
                 patientRegister.removePatient(selectedPatient);
+                status.setText("Patient deleted successfully.");
                 updateObservableList();
             }
         }
@@ -153,8 +145,13 @@ public class PatientRegisterController implements Initializable {
         } else {
             PatientDialog patientDialog = new PatientDialog(editRow, true);
             patientDialog.showAndWait();
-
-            updateObservableList();
+            if (patientDialog.getResult().getErrorMessages().isEmpty()) {
+                status.setText("Patient was successfully edited.");
+                updateObservableList();
+            }
+            else {
+                status.setText("Could not edit patient. Required to fill all fields.");
+            }
         }
     }
 
@@ -188,6 +185,15 @@ public class PatientRegisterController implements Initializable {
         patientDetailsTableView.getColumns().addAll(firstName,lastName,generalPractitioner,ssn,diagnosis);
 
         patientDetailsTableView.setItems(getPatientRegisterListWrapper());
+
+        patientDetailsTableView.setOnMousePressed(mouseEvent -> {
+            if (mouseEvent.isPrimaryButtonDown() && (mouseEvent.getClickCount() == 2)) {
+                Patient selectedPatient = patientDetailsTableView.getSelectionModel().getSelectedItem();
+                if (selectedPatient != null) {
+                    showDetails(selectedPatient);
+                }
+            }
+        });
 
         //patientDetailsTableView = createCenterContent();
 

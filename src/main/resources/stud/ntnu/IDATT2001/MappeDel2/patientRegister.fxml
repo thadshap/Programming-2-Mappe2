@@ -37,7 +37,7 @@
                 </ImageView>
               </graphic>
             </MenuItem>
-            <MenuItem fx:id="editSelectedPatient" mnemonicParsing="false" text="Edit Selected Patient">
+            <MenuItem fx:id="editSelectedPatient" mnemonicParsing="false" onAction="#editPatient" text="Edit Selected Patient">
               <graphic>
                 <ImageView fx:id="editIcon" disable="false" fitHeight="15" fitWidth="15" pickOnBounds="true" preserveRatio="true">
                   <image>
@@ -46,7 +46,7 @@
                 </ImageView>
               </graphic>
             </MenuItem>
-            <MenuItem fx:id="removeSelectedPatient" mnemonicParsing="false" onAction="#deleteConfirmation" text="Remove Selected Patient ">
+            <MenuItem fx:id="removeSelectedPatient" mnemonicParsing="false" onAction="#deletePatient" text="Remove Selected Patient ">
               <graphic>
                 <ImageView fx:id="removeIcon" disable="false" fitHeight="15" fitWidth="15" pickOnBounds="true" preserveRatio="true">
                   <image>
@@ -114,7 +114,7 @@
       </Pane>
       <Pane prefHeight="36.0" prefWidth="640.0" style="-fx-background-color: lightgrey;">
          <children>
-            <Label fx:id="status" layoutX="8.0" layoutY="4.0" prefHeight="17.0" prefWidth="115.0" />
+            <Label fx:id="status" layoutX="8.0" layoutY="4.0" prefHeight="17.0" prefWidth="627.0" />
          </children>
       </Pane>
   </children>
