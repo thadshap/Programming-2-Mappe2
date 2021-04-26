@@ -1,8 +1,5 @@
 package stud.ntnu.IDATT2001.MappeDel2;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-
 import java.util.HashMap;
 import java.util.Objects;
 

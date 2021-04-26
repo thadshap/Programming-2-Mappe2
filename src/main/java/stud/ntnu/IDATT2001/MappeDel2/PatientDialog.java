@@ -7,8 +7,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
-import java.util.HashMap;
-
 public class PatientDialog extends Dialog<Patient> {
     final String textRegex = "^[a-zA-Z ,.'-]*$";
 
@@ -83,7 +81,7 @@ public class PatientDialog extends Dialog<Patient> {
         }
 
         GridPane grid = new GridPane();
-        grid.setHgap(20);
+        grid.setHgap(30);
         grid.setVgap(10);
         grid.setPadding(new Insets(20, 150, 10, 10));
 

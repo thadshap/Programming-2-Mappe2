@@ -1,20 +1,15 @@
 package stud.ntnu.IDATT2001.MappeDel2;
 
 import javafx.application.Platform;
-import javafx.beans.Observable;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -28,6 +23,9 @@ public class PatientRegisterController implements Initializable {
     @FXML private TableColumn<Patient,String> ssn;
     @FXML private TableColumn<Patient,String> diagnosis;
     @FXML private Label status;
+    @FXML private MenuItem addNewPatient;
+    @FXML private MenuItem editSelectedPatient;
+    @FXML private MenuItem removeSelectedPatient;
 
 
     private PatientRegister patientRegister;
@@ -59,14 +57,14 @@ public class PatientRegisterController implements Initializable {
             Patient newPatient = result.get();
             if (newPatient.getErrorMessages().isEmpty()) {
                 if (patientRegister.addPatient(newPatient)) {
-                    status.setText("Patient was successfully registered.");
+                    status.setText("Status: patient was successfully registered.");
                 } else {
-                    status.setText("Patient with this social security number is already registered.");
+                    status.setText("Status: patient with this social security number is already registered.");
                 }
                 updateObservableList();
             }
             else {
-                status.setText("Could not add patient. Required to fill all fields.");
+                status.setText("Status: could not add patient. Required to fill all fields.");
             }
         }
     }
@@ -95,7 +93,7 @@ public class PatientRegisterController implements Initializable {
         } else {
             if (deleteConfirmation()) {
                 patientRegister.removePatient(selectedPatient);
-                status.setText("Patient deleted successfully.");
+                status.setText("Status: patient deleted successfully.");
                 updateObservableList();
             }
         }
@@ -146,11 +144,11 @@ public class PatientRegisterController implements Initializable {
             PatientDialog patientDialog = new PatientDialog(editRow, true);
             patientDialog.showAndWait();
             if (patientDialog.getResult().getErrorMessages().isEmpty()) {
-                status.setText("Patient was successfully edited.");
+                status.setText("Status: patient was successfully edited.");
                 updateObservableList();
             }
             else {
-                status.setText("Could not edit patient. Required to fill all fields.");
+                status.setText("Status: could not edit patient. Required to fill all fields.");
             }
         }
     }
@@ -174,9 +172,6 @@ public class PatientRegisterController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         patientRegister = new PatientRegister();
 
-        patientRegister.addPatient(new Patient("12345678910","t","t","r","r"));
-        patientRegister.addPatient(new Patient("12345678810","t","p","r","r"));
-
         firstName.setCellValueFactory(new PropertyValueFactory<Patient,String>("firstName"));
         lastName.setCellValueFactory(new PropertyValueFactory<Patient,String>("lastName"));
         generalPractitioner.setCellValueFactory(new PropertyValueFactory<Patient,String>("generalPractitioner"));
@@ -195,8 +190,9 @@ public class PatientRegisterController implements Initializable {
             }
         });
 
-        //patientDetailsTableView = createCenterContent();
+        addNewPatient.setAccelerator(new KeyCodeCombination(KeyCode.A));
+        editSelectedPatient.setAccelerator(new KeyCodeCombination(KeyCode.E));
+        removeSelectedPatient.setAccelerator(new KeyCodeCombination(KeyCode.DELETE));
 
     }
-
 }
