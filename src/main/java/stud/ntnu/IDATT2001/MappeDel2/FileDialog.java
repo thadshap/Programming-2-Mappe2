@@ -38,12 +38,7 @@ public class FileDialog extends Dialog<String> {
                 String dirName = file.getAbsolutePath(); //.replaceAll("/", Matcher.quoteReplacement("\\\\")); // /Users/Thadsha/Programmering2
                 if(file != null){
                     directoryName.setText(file.getAbsolutePath());
-                    System.out.println("dialog button if" + dirName);
                 }
-                else {
-                    System.out.println("dialog button else");
-                }
-
             }
         });
 

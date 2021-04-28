@@ -178,7 +178,6 @@ public class PatientRegisterController implements Initializable {
     @FXML
     private void writeFile(){
         fileHandler.exportData(patientRegister);
-        //fileHandler.showAndWait();
     }
 
     @Override
