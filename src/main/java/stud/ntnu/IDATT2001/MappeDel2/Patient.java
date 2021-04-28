@@ -12,13 +12,25 @@ public class Patient {
 
     private HashMap<String,String> errorMessages;
 
-    public Patient(String socialSecurityNumber, String firstName, String lastName, String diagnosis, String generalPractitioner) {
+    private Patient(){
         errorMessages = new HashMap<>();
+    }
+
+    public Patient(String socialSecurityNumber, String firstName, String lastName, String diagnosis, String generalPractitioner) {
+        this();
         setSocialSecurityNumber(socialSecurityNumber);
         setFirstName(firstName);
         setLastName(lastName);
         setDiagnosis(diagnosis);
         setGeneralPractitioner(generalPractitioner);
+    }
+
+    public Patient(String firstName, String lastName, String generalPractitioner, String socialSecurityNumber){
+        this();
+        setFirstName(firstName);
+        setLastName(lastName);
+        setGeneralPractitioner(generalPractitioner);
+        setSocialSecurityNumber(socialSecurityNumber);
     }
 
     public String getSocialSecurityNumber() {
@@ -72,17 +84,19 @@ public class Patient {
     public void setDiagnosis(String diagnosis) {
         if (diagnosis == null || diagnosis.trim().length() == 0) {
             errorMessages.put("diagnosis","Diagnosis cannot be null or empty!!");
+            this.diagnosis = "";
+        } else {
+            this.diagnosis = diagnosis;
         }
-
-        this.diagnosis = diagnosis;
     }
 
     public void setGeneralPractitioner(String generalPractitioner) {
         if (generalPractitioner == null || generalPractitioner.trim().length() == 0) {
             errorMessages.put("generalPractitioner","General practitioner cannot be null or empty!!");
+            this.generalPractitioner = "";
+        } else{
+            this.generalPractitioner = generalPractitioner;
         }
-
-        this.generalPractitioner = generalPractitioner;
     }
 
     @Override
@@ -96,5 +110,14 @@ public class Patient {
     @Override
     public int hashCode() {
         return Objects.hash(getSocialSecurityNumber());
+    }
+
+    @Override
+    public String toString() {
+        return   firstName + ';' +
+                 lastName + ';' +
+                 diagnosis + ';' +
+                 generalPractitioner + ';'+
+                 socialSecurityNumber;
     }
 }

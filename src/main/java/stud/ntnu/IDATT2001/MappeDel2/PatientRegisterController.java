@@ -27,6 +27,7 @@ public class PatientRegisterController implements Initializable {
     @FXML private MenuItem editSelectedPatient;
     @FXML private MenuItem removeSelectedPatient;
 
+    private FileHandler fileHandler;
 
     private PatientRegister patientRegister;
 
@@ -71,7 +72,7 @@ public class PatientRegisterController implements Initializable {
 
     @FXML
     private boolean deleteConfirmation(){
-        Boolean delete = false;
+        boolean delete = false;
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete confirmation");
@@ -168,8 +169,22 @@ public class PatientRegisterController implements Initializable {
         }
     }
 
+    @FXML
+    private void readFile(){
+        fileHandler.importData("Open .csv file",patientRegister);
+        patientDetailsTableView.setItems(getPatientRegisterListWrapper());
+    }
+
+    @FXML
+    private void writeFile(){
+        fileHandler.exportData(patientRegister);
+        //fileHandler.showAndWait();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        fileHandler = new FileHandler();
+
         patientRegister = new PatientRegister();
 
         firstName.setCellValueFactory(new PropertyValueFactory<Patient,String>("firstName"));
