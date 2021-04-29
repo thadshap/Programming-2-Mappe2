@@ -177,7 +177,13 @@ public class PatientRegisterController implements Initializable {
 
     @FXML
     private void writeFile(){
-        fileHandler.exportData(patientRegister);
+        boolean exportStatus = fileHandler.exportData(patientRegister);
+        if (exportStatus){
+            status.setText("Status: successfully exported to .CSV file");
+        }
+        else {
+            status.setText("Status: could not export to .CSV file");
+        }
     }
 
     @Override

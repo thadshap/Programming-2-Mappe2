@@ -9,13 +9,13 @@ import javafx.stage.DirectoryChooser;
 
 import java.io.File;
 
-public class FileDialog extends Dialog<String> {
+public class FilePathDialog extends Dialog<PathContent> {
 
     TextField fileName = new TextField();
 
     TextField directoryName = new TextField();
 
-    public FileDialog() {
+    public FilePathDialog() {
         exportDataDialog();
     }
 
@@ -53,19 +53,9 @@ public class FileDialog extends Dialog<String> {
 
         setResultConverter((ButtonType button) -> {
             if (button == ButtonType.OK) {
-                return directoryName.getText() + "/" + fileName.getText();
+                return new PathContent(directoryName.getText(),fileName.getText());
             }
             return null;
         });
     }
-
-    private void existingFileAlertBox(){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.getButtonTypes().addAll(ButtonType.YES,ButtonType.NO);
-        alert.setTitle("File selection");
-        alert.setHeaderText("File already exists");
-        alert.setContentText("A file with same name exists. Do you want to overwrite it?");
-        alert.showAndWait();
-    }
-
 }

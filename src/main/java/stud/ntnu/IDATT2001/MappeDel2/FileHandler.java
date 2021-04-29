@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.Scanner;
 
 
@@ -59,22 +60,57 @@ public class FileHandler {
         }
     }
 
-    public void exportData(PatientRegister patientRegister){
-        Dialog<String> fileDialog = new FileDialog();
+    public boolean exportData(PatientRegister patientRegister){
+        Dialog<PathContent> fileDialog = new FilePathDialog();
         fileDialog.showAndWait();
-        String result = fileDialog.getResult();
+        PathContent result = fileDialog.getResult();
+        String filePath = result.getDirName()+"/"+result.getFileName()+ ".csv";
+        File file = new File(filePath);
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(result + ".csv"))) {
+        while (file.exists()){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.getButtonTypes().clear();
+            alert.getButtonTypes().addAll(ButtonType.YES,ButtonType.CANCEL,ButtonType.NO);
+            alert.setTitle("File selection");
+            alert.setHeaderText("File already exists");
+            alert.setContentText("A file with same name exists. Do you want to overwrite it?");
+
+            Optional<ButtonType> r = alert.showAndWait();
+
+            if (r.isPresent() && (r.get() == ButtonType.YES)) {
+                break;
+            }
+            else if(r.isPresent() && (r.get() == ButtonType.CANCEL)){
+                return false;
+            }
+            else {
+                Dialog<String> fileNameDialog = new FileNameDialog();
+                fileNameDialog.showAndWait();
+                String fileDialogResult = fileNameDialog.getResult();
+                if (fileDialogResult == null){
+                    return false;
+                }
+                filePath = result.getDirName()+"/"+fileDialogResult+ ".csv";
+                file = new File(filePath);
+            }
+        }
+
+        return writeToFile(filePath,patientRegister);
+    }
+
+    private boolean writeToFile(String filePath, PatientRegister patientRegister){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             Collection<Patient> patients = patientRegister.getAllPatients();
             writer.write("firstName;lastName;diagnosis;generalPractitioner;socialSecurityNumber\n");
 
             for (Patient p : patients) {
                 writer.write(p.toString() + "\n");
             }
-
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
 }
