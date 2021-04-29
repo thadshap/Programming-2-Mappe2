@@ -197,7 +197,6 @@ public class PatientRegisterController implements Initializable {
         generalPractitioner.setCellValueFactory(new PropertyValueFactory<Patient,String>("generalPractitioner"));
         ssn.setCellValueFactory(new PropertyValueFactory<Patient,String>("socialSecurityNumber"));
         diagnosis.setCellValueFactory(new PropertyValueFactory<Patient,String>("diagnosis"));
-        patientDetailsTableView.getColumns().addAll(firstName,lastName,generalPractitioner,ssn,diagnosis);
 
         patientDetailsTableView.setItems(getPatientRegisterListWrapper());
 
