@@ -1,4 +1,6 @@
 package stud.ntnu.IDATT2001.MappeDel2.factoryPattern;
 
-public class ToolBar extends Node{
+import javafx.scene.Node;
+
+public class ToolBar extends javafx.scene.control.ToolBar {
 }
