@@ -7,14 +7,27 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
+/**
+ *
+ *
+ * @author Thadshajini
+ * @version 2020-05-05
+ */
+
 public class FileNameDialog extends Dialog<String> {
     GridPane gridPane = new GridPane();
     TextField fileName = new TextField();
 
+    /**
+     * Constructor that initiates file fetching
+     */
     public FileNameDialog() {
         fetchFileName();
     }
 
+    /**
+     * Dialog box to specify a file name
+     */
     private void fetchFileName(){
         gridPane.setHgap(30);
         gridPane.setVgap(10);

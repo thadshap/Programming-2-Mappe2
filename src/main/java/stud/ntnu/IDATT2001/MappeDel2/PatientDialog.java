@@ -3,13 +3,19 @@ package stud.ntnu.IDATT2001.MappeDel2;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.input.GestureEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
+/**
+ * Creates dialog boxes for operation regarding a patient ie add, edit and info
+ *
+ * @author Thadshajini
+ * @version 2020-05-05
+ */
+
 public class PatientDialog extends Dialog<Patient> {
-    final String textRegex = "^[a-zA-Z ,.'-]*$";
+    final String textRegex = "^[a-zA-Z ,.'-]*$"; //uppercase and lowercase letters, fullstops, hyphen, apostrophe, comma and space.
 
     private Label ssnError = new Label();
 
@@ -21,12 +27,20 @@ public class PatientDialog extends Dialog<Patient> {
         NEW, EDIT, INFO
     }
 
+    /**
+     * Constructor (in use to add a new patient in the table view)
+     */
     public PatientDialog() {
         super();
         this.mode = Mode.NEW;
-        createPatient();
+        patientHandler();
     }
 
+    /**
+     * Constructor (in use to edit a patient in the table view or look up information about a patient)
+     * @param patient
+     * @param editable
+     */
     public PatientDialog (Patient patient, boolean editable){
         super();
         if (editable) {
@@ -35,45 +49,13 @@ public class PatientDialog extends Dialog<Patient> {
             this.mode = Mode.INFO;
         }
         this.existingPatient = patient;
-        createPatient();
+        patientHandler();
     }
 
-    private void validateTextField(TextField textField, String regex){
-        textField.setTextFormatter(new TextFormatter<>(change ->
-                (change.getControlNewText().matches(regex)) ? change : null));
-        textField.setOnKeyTyped(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (textField.getText().matches(regex) && !textField.getText().isEmpty()){
-                    textField.setBorder(new Border(new BorderStroke(Color.GREEN, BorderStrokeStyle.SOLID, CornerRadii.EMPTY,BorderWidths.DEFAULT)));
-                }
-                else {
-                    textField.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY,BorderWidths.DEFAULT)));
-                }
-            }
-        });
-    }
-
-    private void validateNumber(TextField textField, String regex1, String regex2){
-        textField.setTextFormatter(new TextFormatter<>(change ->
-                (change.getControlNewText().matches(regex1)) ? change : null));
-        textField.setOnKeyTyped(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (textField.getText().matches(regex2)){
-                    textField.setBorder(new Border(new BorderStroke(Color.GREEN, BorderStrokeStyle.SOLID, CornerRadii.EMPTY,BorderWidths.DEFAULT)));
-                    ssnError.setText("");
-                }
-                else {
-                    textField.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY,BorderWidths.DEFAULT)));
-                    ssnError.setTextFill(Color.RED);
-                    ssnError.setText("*please provide 11 digits.");
-                }
-            }
-        });
-    }
-
-    private void createPatient() {
+    /**
+     * Handles a patient according to a given enum
+     */
+    private void patientHandler() {
         GridPane grid = setupDialogBox();
 
         TextField firstName = new TextField();
@@ -105,8 +87,59 @@ public class PatientDialog extends Dialog<Patient> {
         addAndEditSeparator(socialSecurityNumber,firstName,lastName,generalPractitioner,diagnosis);
     }
 
+    /**
+     * Helper method to changes the color of the frame of the text field corresponding to the input
+     * (used for first name, last name, general practitioner and diagnosis text field)
+     * @param textField
+     * @param regex
+     */
+    private void validateTextField(TextField textField, String regex){
+        textField.setTextFormatter(new TextFormatter<>(change ->
+                (change.getControlNewText().matches(regex)) ? change : null));
+        textField.setOnKeyTyped(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (textField.getText().matches(regex) && !textField.getText().isEmpty()){
+                    textField.setBorder(new Border(new BorderStroke(Color.GREEN, BorderStrokeStyle.SOLID, CornerRadii.EMPTY,BorderWidths.DEFAULT)));
+                }
+                else {
+                    textField.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY,BorderWidths.DEFAULT)));
+                }
+            }
+        });
+    }
+
+    /**
+     * Helper method to changes the color of the frame of the text field corresponding to the input
+     * (used for social security number text field)
+     * @param textField
+     * @param regex1
+     * @param regex2
+     */
+    private void validateNumber(TextField textField, String regex1, String regex2){
+        textField.setTextFormatter(new TextFormatter<>(change ->
+                (change.getControlNewText().matches(regex1)) ? change : null));
+        textField.setOnKeyTyped(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (textField.getText().matches(regex2)){
+                    textField.setBorder(new Border(new BorderStroke(Color.GREEN, BorderStrokeStyle.SOLID, CornerRadii.EMPTY,BorderWidths.DEFAULT)));
+                    ssnError.setText("");
+                }
+                else {
+                    textField.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY,BorderWidths.DEFAULT)));
+                    ssnError.setTextFill(Color.RED);
+                    ssnError.setText("*please provide 11 digits.");
+                }
+            }
+        });
+    }
+
+    /**
+     * Help method to switch in between the different objects that provide dialog boxes with corresponding functionality
+     * @return the object's associated dialog box
+     */
     private GridPane setupDialogBox(){
-        // Set title depending upon mode...
         switch (this.mode) {
             case EDIT:
                 setTitle("Patient Details - Edit");
@@ -135,6 +168,14 @@ public class PatientDialog extends Dialog<Patient> {
         return  grid;
     }
 
+    /**
+     * Helper method of saving patient objects depending on edit and new enums
+     * @param socialSecurityNumber
+     * @param firstName
+     * @param lastName
+     * @param generalPractitioner
+     * @param diagnosis
+     */
     private void addAndEditSeparator(TextField socialSecurityNumber,
                                      TextField firstName,
                                      TextField lastName,
@@ -147,7 +188,6 @@ public class PatientDialog extends Dialog<Patient> {
                 if (mode == Mode.NEW) {
                     result = new Patient(socialSecurityNumber.getText(),firstName.getText(),lastName.getText(),diagnosis.getText(),generalPractitioner.getText());
                 } else if (mode == Mode.EDIT) {
-                    existingPatient.setSocialSecurityNumber(socialSecurityNumber.getText());
                     existingPatient.setFirstName(firstName.getText());
                     existingPatient.setLastName(lastName.getText());
                     existingPatient.setGeneralPractitioner(generalPractitioner.getText());
@@ -159,20 +199,28 @@ public class PatientDialog extends Dialog<Patient> {
         });
     }
 
+    /**
+     * Helper method to set if data from patient is editable depending on info and dit enums
+     * @param socialSecurityNumber
+     * @param firstName
+     * @param lastName
+     * @param generalPractitioner
+     * @param diagnosis
+     */
     private void infoAndEditSeparator(TextField socialSecurityNumber,
                                       TextField firstName,
                                       TextField lastName,
                                       TextField generalPractitioner,
                                       TextField diagnosis){
-        // Fill inn data from the provided Newspaper, if not null.
+
         if ((mode == Mode.EDIT) || (mode == Mode.INFO)) {
             firstName.setText(existingPatient.getFirstName());
             lastName.setText(existingPatient.getLastName());
-            socialSecurityNumber.setText(existingPatient.getSocialSecurityNumber());
+            socialSecurityNumber.setEditable(false);
             generalPractitioner.setText(existingPatient.getGeneralPractitioner());
             diagnosis.setText(existingPatient.getDiagnosis());
             socialSecurityNumber.setText(existingPatient.getSocialSecurityNumber());
-            // Set to non-editable if Mode.INFO
+
             if (mode == Mode.INFO) {
                 firstName.setEditable(false);
                 lastName.setEditable(false);
@@ -183,14 +231,26 @@ public class PatientDialog extends Dialog<Patient> {
         }
     }
 
+    /**
+     * Helper methode for setting up the position for each GUI elements on the dialog box
+     * @param grid
+     * @param socialSecurityNumber
+     * @param firstName
+     * @param lastName
+     * @param generalPractitioner
+     * @param diagnosis
+     */
     private void setupGrid(GridPane grid,
                            TextField socialSecurityNumber,
                            TextField firstName,
                            TextField lastName,
                            TextField generalPractitioner,
                            TextField diagnosis){
-        grid.add(new Label("First name"), 0, 0);
-        grid.add(firstName, 1, 0);
+        Label required = new Label("Required to fill all fields");
+        grid.add(required,1,0);
+
+        grid.add(new Label("First name"), 0, 1);
+        grid.add(firstName, 1, 1);
 
         grid.add(new Label("Last name"), 0, 2);
         grid.add(lastName, 1, 2);
@@ -203,12 +263,9 @@ public class PatientDialog extends Dialog<Patient> {
         grid.add(new Label("General Practitioner"), 0, 5);
         grid.add(generalPractitioner, 1, 5);
 
-        grid.add(new Label("Diagnosis"), 0, 7);
-        grid.add(diagnosis, 1, 7);
+        grid.add(new Label("Diagnosis"), 0, 6);
+        grid.add(diagnosis, 1, 6);
 
-        Label required = new Label("*Required to fill all fields");
-        required.setTextFill(Color.RED);
-        grid.add(required,0,9);
     }
 }
 

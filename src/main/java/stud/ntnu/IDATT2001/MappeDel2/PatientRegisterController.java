@@ -9,11 +9,16 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
-
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Patient register controller
+ *
+ * @author Thadshajini
+ * @version 2020-05-05
+ */
 
 public class PatientRegisterController implements Initializable {
     @FXML private TableView<Patient> patientDetailsTableView;
@@ -33,6 +38,10 @@ public class PatientRegisterController implements Initializable {
 
     private ObservableList<Patient> patientRegisterListWrapper;
 
+    /**
+     * EnWraps the patient register into an observable list that is manageable for out gui application
+     * @return a observable list of patients registered in patient register
+     */
     public ObservableList<Patient> getPatientRegisterListWrapper() {
         if (this.patientRegister == null) {
             patientRegisterListWrapper =  null;
@@ -43,10 +52,16 @@ public class PatientRegisterController implements Initializable {
         return patientRegisterListWrapper;
     }
 
+    /**
+     * Updates the the patientRegisterListWrapper
+     */
     public void updateObservableList() {
         this.patientRegisterListWrapper.setAll(this.patientRegister.getAllPatients());
     }
 
+    /**
+     * Functionality for add patient feature
+     */
     @FXML
     public void addPatient() {
 
@@ -56,7 +71,7 @@ public class PatientRegisterController implements Initializable {
 
         if (result.isPresent()) {
             Patient newPatient = result.get();
-            if (newPatient.getErrorMessages().isEmpty()) {
+            if (newPatient.getErrorCounter()==0) {
                 if (patientRegister.addPatient(newPatient)) {
                     status.setText("Status: patient was successfully registered.");
                 } else {
@@ -70,6 +85,11 @@ public class PatientRegisterController implements Initializable {
         }
     }
 
+    /**
+     * Alert box for delete confirmation
+     * @return true if the patient was successfully deleted
+     *         false if not
+     */
     @FXML
     private boolean deleteConfirmation(){
         boolean delete = false;
@@ -87,6 +107,9 @@ public class PatientRegisterController implements Initializable {
         return delete;
     }
 
+    /**
+     * Functionality for the delete feature
+     */
     public void deletePatient() {
         Patient selectedPatient = patientDetailsTableView.getSelectionModel().getSelectedItem();
         if (selectedPatient == null) {
@@ -100,12 +123,9 @@ public class PatientRegisterController implements Initializable {
         }
     }
 
-    private void handleDelete(){
-        if (deleteConfirmation()){
-
-        }
-    }
-
+    /**
+     * Alert bok for help feature
+     */
     @FXML
     private void helpBox(){
         Alert alertHelp = new Alert(Alert.AlertType.INFORMATION);
@@ -115,18 +135,24 @@ public class PatientRegisterController implements Initializable {
         alertHelp.showAndWait();
     }
 
+    /**
+     * Get information about a chosen patient
+     * @param selectedPatient
+     */
     @FXML
     public void showDetails(Patient selectedPatient) {
         if (selectedPatient == null) {
             showPleaseSelectItemDialog();
         } else {
-
             PatientDialog detailsDialog = new PatientDialog(selectedPatient,false);
 
             detailsDialog.showAndWait();
         }
     }
 
+    /**
+     * Alert box for if the user did not select a column
+     */
     public void showPleaseSelectItemDialog() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Information");
@@ -136,6 +162,9 @@ public class PatientRegisterController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Functionality for the edit feature
+     */
     @FXML
     public void editPatient() {
         Patient editRow = patientDetailsTableView.getSelectionModel().getSelectedItem();
@@ -144,16 +173,19 @@ public class PatientRegisterController implements Initializable {
         } else {
             PatientDialog patientDialog = new PatientDialog(editRow, true);
             patientDialog.showAndWait();
-            if (patientDialog.getResult().getErrorMessages().isEmpty()) {
+            Patient result = patientDialog.getResult();
+            if (result != null && result.getErrorCounter() == 0) {
                 status.setText("Status: patient was successfully edited.");
                 updateObservableList();
-            }
-            else {
+            } else {
                 status.setText("Status: could not edit patient. Required to fill all fields.");
             }
         }
     }
 
+    /**
+     * Functionality for the exit feature
+     */
     @FXML
     public void exitApplication() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -164,27 +196,32 @@ public class PatientRegisterController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.isPresent() && (result.get() == ButtonType.OK)) {
-            // ... user choose OK
             Platform.exit();
         }
     }
 
+    /**
+     * Functionality for the import csv feature
+     */
     @FXML
     private void readFile(){
-        fileHandler.importData("Open .csv file",patientRegister);
+        fileHandler.importData(patientRegister);
         patientDetailsTableView.setItems(getPatientRegisterListWrapper());
     }
 
+    /**
+     * Functionality for the export csv feature
+     */
     @FXML
     private void writeFile(){
         boolean exportStatus = fileHandler.exportData(patientRegister);
         if (exportStatus){
             status.setText("Status: successfully exported to .CSV file");
-        }
-        else {
+        } else {
             status.setText("Status: could not export to .CSV file");
         }
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -192,14 +229,17 @@ public class PatientRegisterController implements Initializable {
 
         patientRegister = new PatientRegister();
 
+        // set values for each column in the table view
         firstName.setCellValueFactory(new PropertyValueFactory<Patient,String>("firstName"));
         lastName.setCellValueFactory(new PropertyValueFactory<Patient,String>("lastName"));
         generalPractitioner.setCellValueFactory(new PropertyValueFactory<Patient,String>("generalPractitioner"));
         ssn.setCellValueFactory(new PropertyValueFactory<Patient,String>("socialSecurityNumber"));
         diagnosis.setCellValueFactory(new PropertyValueFactory<Patient,String>("diagnosis"));
 
+        // sets in patient register data into the table
         patientDetailsTableView.setItems(getPatientRegisterListWrapper());
 
+        // activated retrieving of information when you double click
         patientDetailsTableView.setOnMousePressed(mouseEvent -> {
             if (mouseEvent.isPrimaryButtonDown() && (mouseEvent.getClickCount() == 2)) {
                 Patient selectedPatient = patientDetailsTableView.getSelectionModel().getSelectedItem();
@@ -209,6 +249,7 @@ public class PatientRegisterController implements Initializable {
             }
         });
 
+        // adding short-keys
         addNewPatient.setAccelerator(new KeyCodeCombination(KeyCode.A));
         editSelectedPatient.setAccelerator(new KeyCodeCombination(KeyCode.E));
         removeSelectedPatient.setAccelerator(new KeyCodeCombination(KeyCode.DELETE));
