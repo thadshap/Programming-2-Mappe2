@@ -1,10 +1,13 @@
 package stud.ntnu.IDATT2001.MappeDel2.factoryPattern;
 
 import javafx.scene.Node;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 /**
- * The GUI elements which could be used for this application were stored in separate classes, and they inherited from the Node class. Instances of those objects are created
- * central in this NodeFactory class.
+ * NodeFactory is a factory class that created different node objects.
  *
  * @author Thadshajini
  * @version 2020-05-05
@@ -13,9 +16,9 @@ import javafx.scene.Node;
 public class NodeFactory {
 
     /**
-     * Gitt ønsket Gui element returneres korresponderende objeckt fra vårt interne fabrikk klasse
-     * @param nodeText er navnet på det gui elementet som ønskes å bruke
-     * @return instans av det utvalgte gui objektet
+     * Creats a chosen node object
+     * @param nodeText name of the requested node object
+     * @return a new requested node object
      */
     public static Node getNode(String nodeText){
         if (nodeText == null) return null;

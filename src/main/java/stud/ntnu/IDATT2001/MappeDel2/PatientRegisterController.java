@@ -9,6 +9,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
+import stud.ntnu.IDATT2001.MappeDel2.Task5.PatientDao;
+
+import javax.persistence.Persistence;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -37,6 +40,8 @@ public class PatientRegisterController implements Initializable {
     private PatientRegister patientRegister;
 
     private ObservableList<Patient> patientRegisterListWrapper;
+
+    private PatientDao patientDao;
 
     /**
      * EnWraps the patient register into an observable list that is manageable for out gui application
@@ -222,9 +227,21 @@ public class PatientRegisterController implements Initializable {
         }
     }
 
+    @FXML
+    private void readDatabase(){
+        patientDao = new PatientDao(Persistence.createEntityManagerFactory("st‐olavs‐register"));
+        patientDao.loadDatabase(patientRegister);
+        patientDetailsTableView.setItems(getPatientRegisterListWrapper());
+    }
+
+    @FXML
+    private void writeDatabase(){
+
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         fileHandler = new FileHandler();
 
         patientRegister = new PatientRegister();
