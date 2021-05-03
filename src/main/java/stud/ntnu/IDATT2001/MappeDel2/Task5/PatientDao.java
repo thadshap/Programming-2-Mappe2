@@ -9,6 +9,7 @@ import java.util.List;
 
 public class PatientDao {
     private final EntityManagerFactory emFactory;
+
     public PatientDao(EntityManagerFactory emFactory) {
         this.emFactory = emFactory;
     }
@@ -49,11 +50,11 @@ public class PatientDao {
         EntityManager em = getEM();
         try{
             em.getTransaction().begin();
-            patientRegister.getAllPatients().forEach(patient -> em.persist(reverseConvertPatient(patient)));
+            patientRegister.getAllPatients().forEach(patient -> em.merge(reverseConvertPatient(patient)));
+
             em.getTransaction().commit();//store in database
         }finally{
             closeEM(em);
         }
     }
-
 }

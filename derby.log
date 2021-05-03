@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Mon May 03 17:22:35 CEST 2021:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0179-32d2-f14a-0000018035d8 
+Mon May 03 17:50:50 CEST 2021:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0179-32ec-cddb-000001849cd0 
 on database directory /Users/Thadsha/Programmering2/PatientRegistry/st‐olavs‐register with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@41cf53f9 
 Loaded from file:/Users/Thadsha/.m2/repository/org/apache/derby/derby/10.15.2.0/derby-10.15.2.0.jar
 java.vendor=Oracle Corporation
