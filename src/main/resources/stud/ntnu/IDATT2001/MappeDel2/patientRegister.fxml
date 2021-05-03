@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="643.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stud.ntnu.IDATT2001.MappeDel2.PatientRegisterController">
+<VBox prefHeight="400.0" prefWidth="643.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stud.ntnu.IDATT2001.MappeDel2.controller.PatientRegisterController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>

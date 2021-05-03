@@ -1,4 +1,4 @@
-package stud.ntnu.IDATT2001.MappeDel2;
+package stud.ntnu.IDATT2001.MappeDel2.view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -6,6 +6,8 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
+import stud.ntnu.IDATT2001.MappeDel2.model.PathContent;
+
 import java.io.File;
 
 /**

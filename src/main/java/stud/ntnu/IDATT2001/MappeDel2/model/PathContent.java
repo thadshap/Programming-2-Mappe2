@@ -1,4 +1,4 @@
-package stud.ntnu.IDATT2001.MappeDel2;
+package stud.ntnu.IDATT2001.MappeDel2.model;
 
 /**
  * Immutable class to store information about a file path

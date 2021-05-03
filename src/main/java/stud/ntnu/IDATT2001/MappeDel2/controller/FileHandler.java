@@ -1,7 +1,12 @@
-package stud.ntnu.IDATT2001.MappeDel2;
+package stud.ntnu.IDATT2001.MappeDel2.controller;
 
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
+import stud.ntnu.IDATT2001.MappeDel2.model.PathContent;
+import stud.ntnu.IDATT2001.MappeDel2.model.Patient;
+import stud.ntnu.IDATT2001.MappeDel2.view.FileNameDialog;
+import stud.ntnu.IDATT2001.MappeDel2.view.FilePathDialog;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;

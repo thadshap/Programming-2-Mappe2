@@ -1,4 +1,4 @@
-package stud.ntnu.IDATT2001.MappeDel2;
+package stud.ntnu.IDATT2001.MappeDel2.view;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import stud.ntnu.IDATT2001.MappeDel2.model.Patient;
 
 /**
  * Creates dialog boxes for operation regarding a patient ie add, edit and info

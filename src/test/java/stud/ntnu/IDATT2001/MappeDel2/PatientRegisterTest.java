@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import stud.ntnu.IDATT2001.MappeDel2.model.Patient;
+import stud.ntnu.IDATT2001.MappeDel2.controller.PatientRegister;
 
 import static org.junit.jupiter.api.Assertions.*;
 

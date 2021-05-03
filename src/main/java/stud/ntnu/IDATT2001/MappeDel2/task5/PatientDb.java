@@ -1,4 +1,4 @@
-package stud.ntnu.IDATT2001.MappeDel2.Task5;
+package stud.ntnu.IDATT2001.MappeDel2.task5;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,7 +11,7 @@ import jakarta.persistence.Id;
  * @version 2020-05-05
  */
 @Entity(name = "Patient")
-public class Patient {
+public class PatientDb {
     @Id
     private String socialSecurityNumber;
     @Column
@@ -29,7 +29,7 @@ public class Patient {
      * @param socialSecurityNumber
      * @param diagnosis
      */
-    public Patient(String firstName, String lastName, String generalPractitioner, String socialSecurityNumber,String diagnosis){
+    public PatientDb(String firstName, String lastName, String generalPractitioner, String socialSecurityNumber, String diagnosis){
         setFirstName(firstName);
         setLastName(lastName);
         setGeneralPractitioner(generalPractitioner);
@@ -38,7 +38,7 @@ public class Patient {
     }
 
     // Empty constructor
-    public Patient() {
+    public PatientDb() {
 
     }
 

@@ -1,6 +1,7 @@
-package stud.ntnu.IDATT2001.MappeDel2.Task5;
+package stud.ntnu.IDATT2001.MappeDel2.task5;
 
-import stud.ntnu.IDATT2001.MappeDel2.PatientRegister;
+import stud.ntnu.IDATT2001.MappeDel2.model.Patient;
+import stud.ntnu.IDATT2001.MappeDel2.controller.PatientRegister;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Query;
@@ -38,9 +39,9 @@ public class PatientDao {
         try{
             String sql = "SELECT c FROM Patient c";
             Query q = em.createQuery(sql);
-            List<Patient> allPatients =  q.getResultList();
+            List<PatientDb> allPatientDbs =  q.getResultList();
 
-            allPatients.forEach(patient -> patientRegister.addPatient(convertPatient(patient)));
+            allPatientDbs.forEach(patientDb -> patientRegister.addPatient(convertPatient(patientDb)));
         }finally{
             closeEM(em);
         }
@@ -66,23 +67,23 @@ public class PatientDao {
 
     /**
      * Helper method to convert from patinet (stud.ntnu.IDATT2001.MappeDel2.Task5.Patient)
-     * to stud.ntnu.IDATT2001.MappeDel2.Patient
-     * @param patient
-     * @return the patient object from stud.ntnu.IDATT2001.MappeDel2.Patient
+     * to stud.ntnu.IDATT2001.MappeDel2.model.Patient
+     * @param patientDb
+     * @return the patient object from stud.ntnu.IDATT2001.MappeDel2.model.Patient
      */
-    private stud.ntnu.IDATT2001.MappeDel2.Patient convertPatient(Patient patient){
-        stud.ntnu.IDATT2001.MappeDel2.Patient p = new stud.ntnu.IDATT2001.MappeDel2.Patient(patient.getSocialSecurityNumber(),patient.getFirstName(),patient.getLastName(),patient.getDiagnosis(),patient.getGeneralPractitioner());
+    private Patient convertPatient(PatientDb patientDb){
+        Patient p = new Patient(patientDb.getSocialSecurityNumber(), patientDb.getFirstName(), patientDb.getLastName(), patientDb.getDiagnosis(), patientDb.getGeneralPractitioner());
         return p;
     }
 
     /**
-     * Helper method to convert from patinet (stud.ntnu.IDATT2001.MappeDel2.Patient)
+     * Helper method to convert from patinet (stud.ntnu.IDATT2001.MappeDel2.model.Patient)
      * to stud.ntnu.IDATT2001.MappeDel2.Task5.Patient
      * @param patient
      * @return the patient object from stud.ntnu.IDATT2001.MappeDel2.Task.Patient
      */
-    private Patient reverseConvertPatient(stud.ntnu.IDATT2001.MappeDel2.Patient patient){
-        Patient p = new Patient(patient.getFirstName(),patient.getLastName(),patient.getGeneralPractitioner(), patient.getSocialSecurityNumber(), patient.getDiagnosis());
+    private PatientDb reverseConvertPatient(Patient patient){
+        PatientDb p = new PatientDb(patient.getFirstName(),patient.getLastName(),patient.getGeneralPractitioner(), patient.getSocialSecurityNumber(), patient.getDiagnosis());
         return p;
     }
 }

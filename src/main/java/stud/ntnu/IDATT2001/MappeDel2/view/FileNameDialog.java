@@ -1,4 +1,4 @@
-package stud.ntnu.IDATT2001.MappeDel2;
+package stud.ntnu.IDATT2001.MappeDel2.view;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.ButtonType;

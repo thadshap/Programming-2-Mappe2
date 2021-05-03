@@ -1,4 +1,4 @@
-package stud.ntnu.IDATT2001.MappeDel2;
+package stud.ntnu.IDATT2001.MappeDel2.controller;
 
 import jakarta.persistence.Persistence;
 import javafx.application.Platform;
@@ -10,6 +10,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
+import stud.ntnu.IDATT2001.MappeDel2.model.Patient;
+import stud.ntnu.IDATT2001.MappeDel2.view.PatientDialog;
 import stud.ntnu.IDATT2001.MappeDel2.task5.PatientDao;
 import java.net.URL;
 import java.util.Optional;
