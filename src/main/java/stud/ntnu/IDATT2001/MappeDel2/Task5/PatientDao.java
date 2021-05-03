@@ -1,15 +1,22 @@
 package stud.ntnu.IDATT2001.MappeDel2.Task5;
 
 import stud.ntnu.IDATT2001.MappeDel2.PatientRegister;
-import stud.ntnu.IDATT2001.MappeDel2.Task5.Patient;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Query;
 import java.util.List;
 
+/**
+ * PatientDao is a class that contains all the methods used to perform operations in relation to the database
+ *
+ * @author Thadshajini
+ * @version 2020-05-05
+ */
+
 public class PatientDao {
     private final EntityManagerFactory emFactory;
 
+    //Constructor
     public PatientDao(EntityManagerFactory emFactory) {
         this.emFactory = emFactory;
     }
@@ -22,7 +29,10 @@ public class PatientDao {
         if (em != null && em.isOpen()) em.close();
     }
 
-    //get all the patients
+    /**
+     * Get all the patients from database and adds them into PatientRegister
+     * @param patientRegister
+     */
     public void loadDatabase(PatientRegister patientRegister){
         EntityManager em = getEM();
         try{
@@ -36,16 +46,10 @@ public class PatientDao {
         }
     }
 
-    private stud.ntnu.IDATT2001.MappeDel2.Patient convertPatient(Patient patient){
-        stud.ntnu.IDATT2001.MappeDel2.Patient p = new stud.ntnu.IDATT2001.MappeDel2.Patient(patient.getSocialSecurityNumber(),patient.getFirstName(),patient.getLastName(),patient.getDiagnosis(),patient.getGeneralPractitioner());
-        return p;
-    }
-
-    private Patient reverseConvertPatient(stud.ntnu.IDATT2001.MappeDel2.Patient patient){
-        Patient p = new Patient(patient.getFirstName(),patient.getLastName(),patient.getGeneralPractitioner(), patient.getSocialSecurityNumber(), patient.getDiagnosis());
-        return p;
-    }
-
+    /**
+     * Merging patient data from PatientRegister into database
+     * @param patientRegister
+     */
     public void saveDatabase(PatientRegister patientRegister){
         EntityManager em = getEM();
         try{
@@ -53,8 +57,32 @@ public class PatientDao {
             patientRegister.getAllPatients().forEach(patient -> em.merge(reverseConvertPatient(patient)));
 
             em.getTransaction().commit();//store in database
+
+
         }finally{
             closeEM(em);
         }
+    }
+
+    /**
+     * Helper method to convert from patinet (stud.ntnu.IDATT2001.MappeDel2.Task5.Patient)
+     * to stud.ntnu.IDATT2001.MappeDel2.Patient
+     * @param patient
+     * @return the patient object from stud.ntnu.IDATT2001.MappeDel2.Patient
+     */
+    private stud.ntnu.IDATT2001.MappeDel2.Patient convertPatient(Patient patient){
+        stud.ntnu.IDATT2001.MappeDel2.Patient p = new stud.ntnu.IDATT2001.MappeDel2.Patient(patient.getSocialSecurityNumber(),patient.getFirstName(),patient.getLastName(),patient.getDiagnosis(),patient.getGeneralPractitioner());
+        return p;
+    }
+
+    /**
+     * Helper method to convert from patinet (stud.ntnu.IDATT2001.MappeDel2.Patient)
+     * to stud.ntnu.IDATT2001.MappeDel2.Task5.Patient
+     * @param patient
+     * @return the patient object from stud.ntnu.IDATT2001.MappeDel2.Task.Patient
+     */
+    private Patient reverseConvertPatient(stud.ntnu.IDATT2001.MappeDel2.Patient patient){
+        Patient p = new Patient(patient.getFirstName(),patient.getLastName(),patient.getGeneralPractitioner(), patient.getSocialSecurityNumber(), patient.getDiagnosis());
+        return p;
     }
 }

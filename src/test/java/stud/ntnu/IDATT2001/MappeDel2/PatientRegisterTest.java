@@ -31,10 +31,6 @@ class PatientRegisterTest {
 
     @org.junit.jupiter.api.Nested
     class AddPatientTest {
-        /**
-         * Made a new patient object and added it to the patient registry. This test checks if
-         * that patient was successfully added with the add addPatient method in PatientRegistry.
-         */
         @Test
         @DisplayName("Add a non-existing patient")
         void addUniquePatient() {
@@ -49,41 +45,36 @@ class PatientRegisterTest {
             assertTrue(patientRegister.getAllPatients().contains(patient));
         }
 
-        /**
-         * Made two patient objects where one of the was a duplicate of the other one, which means
-         * that the duplicate one should not be added into the patient registry.
-         * This test shows that the duplicate one was not added by the addPatient method since
-         * it returned false. But the first patient was possible to added.
-         */
         @Test
         @DisplayName("Add an existing patient")
         void addDuplicatePatient() {
             //Act
+            //adding a patient that has not been added in the register before
             patientRegister.addPatient(patient);
+            //adding a patient with the same social security number as a another added patient
             boolean addDuplicatePatient = patientRegister.addPatient(duplicatePatient);
 
             //Assert
+            //trying to add a patient that has already been added before, which should nor work (return false)
             assertFalse(patientRegister.addPatient(patient));
+            /* trying to add a patient that has the same social security number as another
+               previously added patient, which should not work (return false)*/
             assertFalse(addDuplicatePatient);
         }
     }
     @org.junit.jupiter.api.Nested
     class RemovePatientTest {
-        /**
-         * Added a patient in patient registry and then removed it. Then iterated through
-         * the registry to check in the assert if the removePatient method worked. If the
-         * patient was removed then the result would give an empty string, if not,
-         * the information about the added patient would be a string.
-         */
         @Test
         @DisplayName("Remove an existing patient from register")
         void removeExistingPatient() {
             //Act
+            //adding a patient that has not been added in the register before
             patientRegister.addPatient(patient);
-            boolean removePatient = patientRegister.removePatient(patient);
 
             //Assert
-            assertTrue(removePatient);
+            //trying to remove the patient that was added above, which should return true
+            assertTrue(patientRegister.removePatient(patient));
+            //checking if the patient register still contains that patient, which should be false
             assertFalse(patientRegister.getAllPatients().contains(patient));
         }
 
@@ -91,6 +82,7 @@ class PatientRegisterTest {
         @DisplayName("Remove a non-existing patient from register")
         void removeNotExistingPatient() {
             //Act and Assert
+            //trying to remove a non-added patient, which should return false
             assertFalse(patientRegister.removePatient(patient));
         }
     }

@@ -22,8 +22,8 @@
           <items>
             <MenuItem fx:id="importFromCSV" mnemonicParsing="false" onAction="#readFile" text="Import from .CSV..." />
             <MenuItem fx:id="exportToCSV" mnemonicParsing="false" onAction="#writeFile" text="Export to .CSV..." />
-                  <MenuItem mnemonicParsing="false" onAction="#readDatabase" text="Load Database" />
-                  <MenuItem mnemonicParsing="false" onAction="#writeDatabase" text="Save Database" />
+                  <MenuItem mnemonicParsing="false" onAction="#loadRegistryFromDatabase" text="Load Database" />
+                  <MenuItem mnemonicParsing="false" onAction="#saveRegistryInDatabase" text="Save Database" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exitApplication" text="Exit" />
           </items>

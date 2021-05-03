@@ -226,16 +226,22 @@ public class PatientRegisterController implements Initializable {
         }
     }
 
+    /**
+     * Functionality for the load database feature
+     */
     @FXML
-    private void readDatabase(){
-
+    private void loadRegistryFromDatabase(){
         patientDao.loadDatabase(patientRegister);
         patientDetailsTableView.setItems(getPatientRegisterListWrapper());
     }
 
+    /**
+     * Functionality for the save database feature
+     */
     @FXML
-    private void writeDatabase(){
+    private void saveRegistryInDatabase(){
         patientDao.saveDatabase(patientRegister);
+        status.setText("Status: successfully saved the registry into database");
     }
 
     @Override
