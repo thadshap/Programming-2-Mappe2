@@ -1,8 +1,8 @@
 package stud.ntnu.IDATT2001.MappeDel2.Task5;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.util.Objects;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 /**
  * Objectifies a single row from the table view in order to store them in the patient registry
@@ -10,10 +10,11 @@ import java.util.Objects;
  * @author Thadshajini
  * @version 2020-05-05
  */
-@Entity
+@Entity(name = "Patient")
 public class Patient {
     @Id
     private String socialSecurityNumber;
+    @Column
     private String firstName;
     private String lastName;
     private String diagnosis;

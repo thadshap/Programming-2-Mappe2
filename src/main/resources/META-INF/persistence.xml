@@ -3,41 +3,34 @@
 
     <!-- Persistence units for embedded Derby DBs (dev and test) -->
     <persistence-unit name="st‐olavs‐register">
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <class>stud.ntnu.IDATT2001.MappeDel2.Task5.Patient</class>
         <properties>
-            <property name="javax.persistence.jdbc.driver" value="org.apache.derby.iapi.jdbc.AutoloadedDriver" />
+            <property name="jakarta.persistence.jdbc.driver" value="org.apache.derby.iapi.jdbc.AutoloadedDriver" />
 
             <!-- DB is file based and created automatically on startup -->
-            <property name="javax.persistence.jdbc.url" value="jdbc:derby:st‐olavs‐register;create=true" />
-            <property name="javax.persistence.jdbc.user" value="DEV_DB_USER" />
-            <property name="javax.persistence.jdbc.password" value="DEV_DB_PASSWORD" />
-
-            <property name="hibernate.dialect"
-                      value="org.hibernate.dialect.DerbyTenSevenDialect" />
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:derby:st‐olavs‐register;create=true" />
+            <property name="jakarta.persistence.jdbc.user" value="DEV_DB_USER" />
+            <property name="jakarta.persistence.jdbc.password" value="DEV_DB_PASSWORD" />
 
             <!-- automatically creates db model (tables) based on ORM -->
-            <property name="javax.persistence.schema-generation.database.action" value="create"/>
+            <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
         </properties>
     </persistence-unit>
 
     <persistence-unit name="st‐olavs‐register-test">
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <class>stud.ntnu.IDATT2001.MappeDel2.Task5.Patient</class>
         <properties>
 
-            <property name="javax.persistence.jdbc.driver" value="org.apache.derby.iapi.jdbc.AutoloadedDriver" />
+            <property name="jakarta.persistence.jdbc.driver" value="org.apache.derby.iapi.jdbc.AutoloadedDriver" />
 
             <!-- DB is file based and created automatically on startup -->
-            <property name="javax.persistence.jdbc.url" value="jdbc:derby:st‐olavs‐register-test;create=true" />
-            <property name="javax.persistence.jdbc.user" value="TEST_DB_USER" />
-            <property name="javax.persistence.jdbc.password" value="TEST_DB_PASSWORD" />
-
-            <property name="hibernate.dialect"
-                      value="org.hibernate.dialect.DerbyTenSevenDialect" />
-
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:derby:st‐olavs‐register-test;create=true" />
+            <property name="jakarta.persistence.jdbc.user" value="TEST_DB_USER" />
+            <property name="jakarta.persistence.jdbc.password" value="TEST_DB_PASSWORD" />
             <!-- automatically creates db model (tables) based on ORM -->
-            <property name="javax.persistence.schema-generation.database.action" value="create"/>
+            <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
 
         </properties>
     </persistence-unit>

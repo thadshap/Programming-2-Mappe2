@@ -1,11 +1,10 @@
 package stud.ntnu.IDATT2001.MappeDel2.Task5;
 
 import stud.ntnu.IDATT2001.MappeDel2.PatientRegister;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import stud.ntnu.IDATT2001.MappeDel2.Task5.Patient;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Query;
 import java.util.List;
 
 public class PatientDao {
@@ -26,7 +25,8 @@ public class PatientDao {
     public void loadDatabase(PatientRegister patientRegister){
         EntityManager em = getEM();
         try{
-            Query q = em.createQuery("SELECT c FROM Patient c");
+            String sql = "SELECT c FROM Patient c";
+            Query q = em.createQuery(sql);
             List<Patient> allPatients =  q.getResultList();
 
             allPatients.forEach(patient -> patientRegister.addPatient(convertPatient(patient)));
@@ -40,8 +40,20 @@ public class PatientDao {
         return p;
     }
 
-    public void saveDatabase(){
+    private Patient reverseConvertPatient(stud.ntnu.IDATT2001.MappeDel2.Patient patient){
+        Patient p = new Patient(patient.getFirstName(),patient.getLastName(),patient.getGeneralPractitioner(), patient.getSocialSecurityNumber(), patient.getDiagnosis());
+        return p;
+    }
 
+    public void saveDatabase(PatientRegister patientRegister){
+        EntityManager em = getEM();
+        try{
+            em.getTransaction().begin();
+            patientRegister.getAllPatients().forEach(patient -> em.persist(reverseConvertPatient(patient)));
+            em.getTransaction().commit();//store in database
+        }finally{
+            closeEM(em);
+        }
     }
 
 }

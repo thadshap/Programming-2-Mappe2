@@ -37,7 +37,7 @@ public class PatientRegister {
      * Remove a patient
      * @param patient
      */
-    public void removePatient(Patient patient){this.patients.remove(patient);}
+    public boolean removePatient(Patient patient){return this.patients.remove(patient);}
 
     /**
      * Accessor for getting all patients
