@@ -10,7 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
-import stud.ntnu.IDATT2001.MappeDel2.Task5.PatientDao;
+import stud.ntnu.IDATT2001.MappeDel2.task5.PatientDao;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;

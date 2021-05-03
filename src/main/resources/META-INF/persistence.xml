@@ -4,7 +4,7 @@
     <!-- Persistence units for embedded Derby DBs (dev and test) -->
     <persistence-unit name="st‐olavs‐register">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <class>stud.ntnu.IDATT2001.MappeDel2.Task5.Patient</class>
+        <class>stud.ntnu.IDATT2001.MappeDel2.task5.Patient</class>
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.apache.derby.iapi.jdbc.AutoloadedDriver" />
 
@@ -20,7 +20,7 @@
 
     <persistence-unit name="st‐olavs‐register-test">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <class>stud.ntnu.IDATT2001.MappeDel2.Task5.Patient</class>
+        <class>stud.ntnu.IDATT2001.MappeDel2.task5.Patient</class>
         <properties>
 
             <property name="jakarta.persistence.jdbc.driver" value="org.apache.derby.iapi.jdbc.AutoloadedDriver" />
