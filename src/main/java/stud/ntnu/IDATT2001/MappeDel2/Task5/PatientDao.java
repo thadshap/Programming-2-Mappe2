@@ -22,29 +22,36 @@ public class PatientDao {
         this.emFactory = emFactory;
     }
 
-    private EntityManager getEM(){
+    public EntityManager getEM(){
         return emFactory.createEntityManager();
     }
 
-    private void closeEM(EntityManager em){
+    public void closeEM(EntityManager em){
         if (em != null && em.isOpen()) em.close();
     }
 
     /**
      * Get all the patients from database and adds them into PatientRegister
      * @param patientRegister
+     * @return true if the data was successfully loaded from database
+     *         false if not
      */
-    public void loadDatabase(PatientRegister patientRegister){
+    public boolean loadDatabase(PatientRegister patientRegister){
         EntityManager em = getEM();
-        try{
+        boolean status = false;
+        try {
             String sql = "SELECT c FROM Patient c";
             Query q = em.createQuery(sql);
-            List<PatientDb> allPatientDbs =  q.getResultList();
-
+            List<PatientDb> allPatientDbs = q.getResultList();
             allPatientDbs.forEach(patientDb -> patientRegister.addPatient(convertPatient(patientDb)));
-        }finally{
+            status =true;
+        }catch (Exception e){
+            e.printStackTrace();
+            status = false;
+        } finally{
             closeEM(em);
         }
+        return status;
     }
 
     /**
@@ -66,12 +73,27 @@ public class PatientDao {
     }
 
     /**
+     * Checks if a patient with given ssn exists in database
+     * @param ssn
+     * @return true if the patient exists anf false if not
+     * @throws Exception
+     */
+    public boolean exists(String ssn) throws Exception{
+        try {
+            return (getEM().find(PatientDb.class,ssn) != null);
+        } catch (Exception e){
+            throw new Exception("Unable to check if patient with social security number '" + ssn + "' exists: " + e.getMessage());
+        }
+
+    }
+
+    /**
      * Helper method to convert from patinet (stud.ntnu.IDATT2001.MappeDel2.Task5.Patient)
      * to stud.ntnu.IDATT2001.MappeDel2.model.Patient
      * @param patientDb
      * @return the patient object from stud.ntnu.IDATT2001.MappeDel2.model.Patient
      */
-    private Patient convertPatient(PatientDb patientDb){
+    public static Patient convertPatient(PatientDb patientDb){
         Patient p = new Patient(patientDb.getSocialSecurityNumber(), patientDb.getFirstName(), patientDb.getLastName(), patientDb.getDiagnosis(), patientDb.getGeneralPractitioner());
         return p;
     }
@@ -82,8 +104,10 @@ public class PatientDao {
      * @param patient
      * @return the patient object from stud.ntnu.IDATT2001.MappeDel2.Task.Patient
      */
-    private PatientDb reverseConvertPatient(Patient patient){
+    public static PatientDb reverseConvertPatient(Patient patient){
         PatientDb p = new PatientDb(patient.getFirstName(),patient.getLastName(),patient.getGeneralPractitioner(), patient.getSocialSecurityNumber(), patient.getDiagnosis());
         return p;
     }
+
+
 }
