@@ -1,5 +1,8 @@
 ----------------------------------------------------------------
-Tue May 04 23:29:26 CEST 2021D001 : [0] The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585), [1] a816c00e-0179-3949-29a1-000000de8518, [2] /Users/Thadsha/Programmering2/PatientRegistry/st‐olavs‐register-test, [3] jdk.internal.loader.ClassLoaders$AppClassLoader@43a25848, [4] file:/Users/Thadsha/.m2/repository/org/apache/derby/derby/10.15.2.0/derby-10.15.2.0.jar
+Wed May 05 18:51:31 CEST 2021:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0179-3d71-12c5-000001a93e80 
+on database directory /Users/Thadsha/Programmering2/PatientRegistry/st‐olavs‐register with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@41cf53f9 
+Loaded from file:/Users/Thadsha/.m2/repository/org/apache/derby/derby/10.15.2.0/derby-10.15.2.0.jar
 java.vendor=Oracle Corporation
 java.runtime.version=14.0.2+12-46
 user.dir=/Users/Thadsha/Programmering2/PatientRegistry
@@ -7,4 +10,4 @@ os.name=Mac OS X
 os.arch=x86_64
 os.version=10.15.7
 derby.system.home=null
-C005 : [0] 
+Database Class Loader started - derby.database.classpath=''

@@ -6,6 +6,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+import java.util.Locale;
+
 /**
  * NodeFactory is a factory class that created different node objects.
  *
@@ -16,22 +18,22 @@ import javafx.scene.layout.VBox;
 public class NodeFactory {
 
     /**
-     * Creats a chosen node object
+     * Creates a chosen node object
      * @param nodeText name of the requested node object
      * @return a new requested node object
      */
     public static Node getNode(String nodeText){
         if (nodeText == null) return null;
-        switch (nodeText){
-            case "Button" : return new Button();
-            case "ImageView" : return new ImageView();
-            case "Label" : return new Label();
-            case "MenuBar" : return new MenuBar();
-            case "Pane" : return new Pane();
-            case "TableView" : return new TableView();
-            case "TextField" : return new TextField();
-            case "ToolBar" : return new ToolBar();
-            case "VBox" : return new VBox();
+        switch (nodeText.toLowerCase()){
+            case "button" : return new Button();
+            case "imageview" : return new ImageView();
+            case "label" : return new Label();
+            case "menubar" : return new MenuBar();
+            case "pane" : return new Pane();
+            case "tableview" : return new TableView();
+            case "textfield" : return new TextField();
+            case "toolbar" : return new ToolBar();
+            case "vbox" : return new VBox();
             default: return null;
         }
     }

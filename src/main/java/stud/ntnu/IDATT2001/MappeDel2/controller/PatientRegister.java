@@ -1,7 +1,6 @@
 package stud.ntnu.IDATT2001.MappeDel2.controller;
 
 import stud.ntnu.IDATT2001.MappeDel2.model.Patient;
-
 import java.util.ArrayList;
 import java.util.Collection;
 

@@ -105,7 +105,16 @@ class PatientDaoTest {
         @Test
         @DisplayName("load non-existing patient from database")
         void loadNonExistingPatientFromDatabase(){
-
+            try{
+                //Act
+                //trying to find a patient that does not exist
+                PatientDb patientDb1 = entityManager.find(PatientDb.class,"13123986458");
+                //Assert
+                //checking if a patient exists with a non-existing social security number, which should return null
+                assertNull(patientDb1);
+            } catch (Exception e){
+                fail();
+            }
         }
     }
 }
